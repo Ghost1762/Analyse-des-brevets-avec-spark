@@ -4,7 +4,7 @@ Analyse des brevets avec spark ( Big Data )
 # Aperçu du projet :
 Ce projet impliquait la recherche de données provenant de diverses bases de données de brevets telles que Google Patents, FPO, WIPO et Espacenet. Des outils et des technologies puissants sont utilisés pour récupérer, stocker, traiter et visualiser les données, garantissant ainsi une vision complète des brevets agricoles.
 
-![image d'aplication](image\image.png)
+![image d'aplication](image/image.png)
 
 
 # Technologies utilisées :
