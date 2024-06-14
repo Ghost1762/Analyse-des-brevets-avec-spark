@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGROPA</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='feuille.png') }}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+   <style>
+
+.comment-box {
+    border: 1px solid #a3c293;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f5e9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+   .comment-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #f0f5e9;
+        transition: background-color 0.3s ease;
+    }
+
+    .comment-item:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+    }
+.comment-box h3 {
+    margin-bottom: 20px;
+    color: #4f805d;
+}
+
+.comment-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment-form textarea {
+    flex: 3;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #a3c293;
+    resize: none;
+    background-color: #ffffff;
+    height: 50px;
+}
+
+.comment-form select {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #a3c293;
+    background-color: #ffffff;
+    height: 50px;
+}
+
+.comment-form button {
+    flex: 0.5;
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #6b8f6a;
+    background-color: #6b8f6a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    height: 50px;
+}
+
+.comment-form button:hover {
+    background-color: #4f805d;
+    border-color: #4f805d;
+}
+
+.sentiment-result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #4f805d;
+}
+       #quiz-form div {
+    margin-bottom: 15px;
+}
+
+#quiz-form p {
+    font-weight: bold;
+}
+
+#quiz-form ul {
+    list-style: none;
+    padding: 0;
+}
+
+#quiz-form li {
+    margin-bottom: 10px;
+}
+
+#quiz-form input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer button {
+    background-color: #007bff;
+}
+
+footer button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+        .chat-container {
+            max-width: 400px;
+            width: 100%;
+            margin: 20px;
+            border: 1px solid #8bc34a;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slide-in 0.5s ease-out;
+        }
+        .chat-box {
+            height: 250px;
+            border: 1px solid #8bc34a;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f1f8e9;
+        }
+        .chat-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .chat-buttons button {
+            padding: 10px;
+            border: none;
+            background-color: #8bc34a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            flex: 1 1 calc(50% - 10px);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .chat-buttons button:hover {
+            background-color: #7cb342;
+            transform: scale(1.05);
+        }
+        .chat-buttons button img {
+            margin-right: 8px;
+            width: 24px;
+            height: 24px;
+        }
+        .chat-box p {
+            margin: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #e0f7e9;
+            animation: fade-in 0.5s ease-out;
+        }
+        .chat-box p.user {
+            background-color: #d1e7dd;
+            text-align: right;
+        }
+        .chat-box p.bot {
+            background-color: #f1f8e9;
+            text-align: left;
+        }
+        @keyframes slide-in {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+         .list-group-item {
+                text-align: left; /* Alignement à gauche */
+            }
+        /* Styles pour placer l'icône de la poubelle à droite de la date */
+        #historiqueList li {
+            position: relative;
+            display: block; /* Afficher les éléments l'un en dessous de l'autre */
+            margin-bottom: 10px; /* Ajouter un espace entre chaque élément */
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 50%; /* Aligner l'icône de la poubelle verticalement au centre */
+            right: 0;
+            transform: translateY(-50%); /* Aligner l'icône de la poubelle verticalement au centre */
+            cursor: pointer;
+        }
+
+        /* Alignement de la poubelle avec la date */
+        .date {
+            display: inline-block; /* Afficher la date en ligne */
+            margin-right: 30px; /* Ajouter un espacement entre la date et l'icône de la poubelle */
+        }
+
+        .custom-div {
+            width: 69.8%;
+            margin: 0 auto;
+        }
+        /* Style pour la date de consultation */
+        .date {
+            float: right;
+            font-size: 12px;
+            color: #888;
+            margin-left: 10px;
+        }
+
+
+
+    .container {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+   #historiqueList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #historiqueList li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #historiqueList li:hover {
+      background-color: #f8f9fa;
+    }
+
+    .hover-effect:hover {
+    background-color: #f0f0f0; /* Changer la couleur de fond au survol */
+    cursor: pointer; /* Modifier le curseur au survol */
+    /* Ajouter d'autres styles au survol si nécessaire */
+}
+    .list-group-item {
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre */
+            transition: box-shadow 0.3s ease; /* Ajouter une transition fluide */
+            border-radius: 10px;
+        }
+
+    .btn-primary {
+        background-color: white;
+        color: black;
+        border: 1px solid green;
+        padding: 8px 16px;
+        font-size: 16px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: green;
+        border-color: white;
+
+
+    .separator hr {
+        margin: 10px 0;
+    }
+
+    .centered-text {
+        display: inline-block;
+        background-color: white;
+        position: relative;
+        top: -10px;
+        padding: 0 10px;
+    }
+    h3.total-results {
+        font-size: 20px; /* Taille de la police */
+        color: #333; /* Couleur du texte */
+        margin-bottom: 10px; /* Marge en bas */
+    }
+    .modal-dialog {
+                margin: 0;
+                max-width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        .modal-content {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0;
+        }
+        .modal-body {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .delete-icon:hover {
+            transform: scale(1.2);
+        }
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="container2" style="background-color: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#" style="font-family: 'Jokerman', cursive; color: black;">AGROPA</a>
+
+<div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link signup" href="/login2" style="color: black; border: 2px solid #000; border-radius: 20px; padding: 8px 15px; text-decoration: none; margin-right: 10px;">Deconnexion</a>
+        </li>
+        <li class="nav-item">
+            {% if 'username' in session %}
+                <a id="user-link" class="nav-link user" href="#" style="color: black; border: 2px solid #000; border-radius: 20px; padding: 8px 15px; display: inline-block; text-decoration: none; margin-right: 10px;">{{ session['username'] }}</a>
+            {% else %}
+                <a class="nav-link login" href="/login2" style="color: black; border: 2px solid #000; border-radius: 20px; padding: 8px 15px; display: inline-block; text-decoration: none; margin-right: 10px;">Login</a>
+            {% endif %}
+        </li>
+        <li class="nav-item">
+            <button type="button" class="nav-link" data-toggle="modal" data-target="#chatModal" style="color: black; border: 2px solid #000; border-radius: 20px; padding: 8px 15px; text-decoration: none; background-color: transparent; cursor: pointer; margin-right: 10px;">Ouvrir le chat</button>
+        </li>
+    </ul>
+</div>
+    </nav>
+</div>
+
+
+
+  <div class="container mt-5 border rounded p-4 shadow">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="ongletRecherche" data-toggle="tab" href="#tabRecherche">Recherche</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="ongletHistorique" data-toggle="tab" href="#tabHistorique">Historique</a>
+      </li>
+        <li class="nav-item">
+  <a class="nav-link" id="ongletVisualisation" data-toggle="tab" href="#tabVisualisation">Visualisation</a>
+</li>
+        <li class="nav-item">
+            <a class="nav-link" id="ongletQuiz" data-toggle="tab" href="#tabQuiz">Quiz</a>
+        </li>
+
+       <li class="nav-item">
+      <a class="nav-link" id="ongletComments" data-toggle="tab" href="#tabComments">Comments</a>
+    </li>
+
+    </ul>
+
+    <div class="tab-content mt-3">
+      <div class="tab-pane fade show active" id="tabRecherche">
+        <a class="btn btn-outline-dark m-2" href="https://patentimages.storage.googleapis.com/f7/a7/f4/b0aee0e0db01f7/EP3251499B1.pdf">
+          Une armoire hydroponique de culture de plantes
+        </a>
+        <a class="btn btn-outline-dark m-2" href="https://patentimages.storage.googleapis.com/79/33/32/80a8cc234cdeeb/WO2020182840A1.pdf">
+          Dispositif de contrôle de traitement agricole
+        </a>
+        <a class="btn btn-outline-dark m-2" href="https://patentimages.storage.googleapis.com/91/36/ab/c6c5509a79c069/EP2403505B8.pdf">
+          Therapeutic uses of mastic gum fractions
+        </a>
+        <form action="/recherche" method="POST" class="mt-3 form-inline" id="searchForm">
+    <div class="form-group mr-2">
+        <label for="search" class="mr-2">Recherche :</label>
+        <input type="text" class="form-control" id="search" name="search" placeholder="Entrez votre recherche..." style="width: 870px;">
+    </div>
+    <input type="hidden" name="selected_ids_str" id="selected_ids_str"> <!-- Champ de formulaire caché pour stocker selected_ids_str -->
+    <button type="submit" class="btn btn-success">Rechercher</button>
+</form>
+
+
+        <div class="mt-3">
+          <label class="mr-2">Filtrer par office :</label>
+          <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="filter" id="google" value="google" data-target="collection" data-action="find">
+    <label class="form-check-label" for="google">Google Patents</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="filter" id="uspto" value="uspto" data-target="patentscope" data-action="find">
+    <label class="form-check-label" for="uspto">Wipo</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="filter" id="wipo" value="wipo" data-target="patentscope" data-action="find">
+    <label class="form-check-label" for="wipo">Espace Net</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="filter" id="epo" value="epo" data-target="FPO" data-action="find">
+    <label class="form-check-label" for="epo">FPO</label>
+</div>
+
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="tabHistorique">
+        <ul id="historiqueList"></ul>
+      </div>
+<div class="tab-pane fade" id="tabVisualisation">
+  <!-- Contenu de l'onglet Visualisation (rapport Power BI) -->
+  <iframe width="100%" height="600px" src="{{ url_for('static', filename='ra1.png') }}" frameborder="0" allowFullScreen="true"></iframe>
+    <BR>
+    <BR>
+
+      <iframe width="100%" height="600px" src="{{ url_for('static', filename='ra2.png') }}" frameborder="0" allowFullScreen="true"></iframe>
+
+</div>
+        <div class="tab-pane fade" id="tabQuiz">
+            <h1>General Knowledge Quiz</h1>
+            <form id="quiz-form"></form>
+            <div id="result"></div>
+        </div>
+
+<div class="tab-pane fade" id="tabComments">
+  <div class="comment-box">
+    <h3 class="text-center">Laissez Un Commentaire</h3>
+    <form id="commentForm" class="comment-form">
+      <textarea id="comment" name="comment" rows="1" class="form-control" placeholder="Écrivez votre commentaire ici..."></textarea>
+      <select id="language" name="language" class="form-control">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="ar">Arabic</option>
+        <option value="ma">Moroccan Arabic</option>
+      </select>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      <button type="button" class="btn btn-primary" id="showChartButton">Afficher le graphique</button>
+    </form>
+    <div class="sentiment-result" id="sentimentResult"></div>
+  </div>    <div id="commentsList" class="comment-list mt-4">
+        <!-- Les commentaires seront affichés ici -->
+    </div>
+</div>
+    </div>
+  </div>
+  <BR>
+
+
+  <BR>
+<section>
+{% if results %}
+    <ul class="list-group">
+        <div class="custom-div">
+            <h3 class="total-results">Total des résultats: {{ total_results }}</h3>
+            {% for result in results %}
+                <li class="list-group-item hover-effect">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="static/patent.png" alt="patent image" style="max-width: 200px; float: left; margin-right: 10px;">
+                            {% if result.pdf_link %}<strong>PDF:</strong> <a href="{{ result.pdf_link }}">Télécharger le PDF</a>{% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <h2>{{ result.title }}</h2>
+                            <p class="mb-0"><strong>ID:</strong> {{ result.ID }}</p>
+                            {% if result.inventors %}<p class="mb-0"><strong>Inventeurs:</strong> {% for inventor in result.inventors %}{{ inventor }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+                            {% if result.publication_date %}<p class="mb-0"><strong>Date de publication:</strong> {{ result.publication_date }}</p>{% endif%}
+                            {% if result.country %}<p class="mb-0"><strong>Pays:</strong> {{ result.country }}</p>{% endif %}
+                            {% if result.current_assignees %}<p class="mb-0"><strong>Assignataires actuels:</strong> {% for assignee in result.current_assignees %}{{ assignee }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+                            {% if result.priority_date %}<p class="mb-0"><strong>Date de priorité:</strong> {{ result.priority_date }}</p>{% endif %}
+                            {% if result.other_language %}<p class="mb-0"><strong>Langue:</strong> {{ result.other_language }}</p>{% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{{ url_for('detail', patent_id=result.ID) }}" class="btn btn-primary" id="detailBtn">Voir le détail</a>
+                            {% if 'username' in session %}
+                                <div class="text-muted" style="font-size: 0.8em; margin-top: 5px;">
+                                    Consultations: {{ result.consultation_count|default(0) }}<br>
+                                    Dernière consultation: {{ result.last_consulted|default("Pas encore consulté") }}<br>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% if loop.index % 8 == 0 and loop.index != 0 %}
+                    </div>
+                    </ul>
+                    <div class="col-md-12 text-center">
+                        <hr style="clear:both; margin: 10px;">
+                        <details>
+                            <summary>Voir plus de résultats</summary>
+                            <ul class="list-group">
+                                <div class="custom-div">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </ul>
+{% else %}
+    <p class="alert alert-info">Aucun résultat trouvé.</p>
+{% endif %}
+</section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<div id="deleteConfirmationModal" class="modal" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 60%;"> <!-- Largeur du contenu à 60% de la largeur de la fenêtre -->
+        <p>Voulez-vous vraiment supprimer cet élément ?</p>
+        <button id="confirmDelete" style="background-color: #4CAF50; color: white; padding: 10px 20px; margin: 5px; border: none; cursor: pointer; border-radius: 4px;">Confirmer</button>
+        <button id="cancelDelete" style="background-color: #f44336; color: white; padding: 10px 20px; margin: 5px; border: none; cursor: pointer; border-radius: 4px;">Annuler</button>
+    </div>
+</div>
+
+<script>
+$('#ongletHistorique').on('click', function() {
+    // Masquer la balise <section> lorsque l'onglet historique est cliqué
+    $('section').hide();
+
+    // Définir les collections
+    var collections = ['data', 'FPO', 'wip'];
+
+    // Faites une requête AJAX pour récupérer les identifiants et les dates de consultation des brevets consultés par l'utilisateur connecté
+    $.ajax({
+        url: '/historique',
+        type: 'GET',
+        success: function(data) {
+            // Convertir le dictionnaire en tableau pour trier par date de consultation
+            var sortedData = Object.entries(data).sort((a, b) => new Date(b[1]) - new Date(a[1]));
+
+            // Affichez les identifiants et les dates de consultation dans la liste d'historique
+            $('#historiqueList').empty(); // Effacez d'abord le contenu précédent
+            sortedData.forEach(function(entry) {
+                var patent_id = entry[0];
+                var date = entry[1];
+
+                collections.forEach(function(collection) {
+                    var listItem = $('<li id="' + patent_id + '">' + patent_id + '<span class="date centered-text">' + date + '</span><span class="delete-icon">&#128465;</span></li>'); // Ajoutez la classe centered-text à la balise de la date
+                    listItem.find('.delete-icon').hide();
+
+                    listItem.hover(function() {
+                        listItem.find('.delete-icon').show();
+                    }, function() {
+                        listItem.find('.delete-icon').hide();
+                    });
+
+                    listItem.find('.delete-icon').click(function(event) {
+                        event.stopPropagation();
+                        var $modal = $('#deleteConfirmationModal');
+                        $modal.data('patent_id', patent_id); // Stockez l'ID du brevet dans le modal pour une utilisation ultérieure
+                        $modal.show();
+                    });
+
+                    listItem.click(function() {
+                        // Rediriger vers la page de détail avec l'ID du brevet et la collection
+                        window.location.href = '/detail/' + patent_id + '?collection=' + collection + '&patentID=' + patent_id;
+                    });
+
+                    // Vérifier si l'élément listItem ne contient pas l'erreur UndefinedError
+                    if (!listItem.text().includes("UndefinedError")) {
+                        // Ajout de l'élément listItem à la liste historique
+                        $('#historiqueList').append(listItem);
+                    }
+                });
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de la récupération de l\'historique :', error);
+        }
+    });
+});
+
+
+$('#confirmDelete').click(function() {
+    var patent_id = $('#deleteConfirmationModal').data('patent_id');
+$.ajax({
+    url: '/historique/delete/' + patent_id,
+    type: 'DELETE',
+    success: function(response) {
+        $('#' + patent_id).remove();
+        $('#deleteConfirmationModal').hide();
+        console.log(response.message);
+    },
+    error: function(xhr, status, error) {
+        console.error('Erreur lors de la suppression de l\'élément :', error);
+        $('#deleteConfirmationModal').hide();
+    }
+});
+
+});
+
+// Gestionnaire d'événements pour le bouton d'annulation de suppression dans le modal
+$('#cancelDelete').click(function() {
+    $('#deleteConfirmationModal').hide();
+});
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">Informations Utilisateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="user-info">
+        <!-- Les informations de l'utilisateur seront affichées ici -->
+      </div>
+          <button type="button" class="btn btn-primary btn-sm mb-3 d-block mx-auto" id="create-alert" style="width: 300px;" onclick="sendAlertEmail()">Créer mon alerte</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Lorsque l'utilisateur clique sur le lien d'utilisateur
+    $('#user-link').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/user_info',
+            type: 'GET',
+            success: function(response) {
+                $('#user-info').html(response);
+                $('#userModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
+<script>
+    function sendAlertEmail() {
+        fetch('/send_email')
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Afficher un message à l'utilisateur
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite :', error);
+            });
+    }
+</script>
+
+<script>
+  $(document).ready(function() {
+    // Fonction pour récupérer les ID des champs de radio sélectionnés
+    function getSelectedRadioIds() {
+        var selectedIds = [];
+        $('input[type="radio"]:checked').each(function() {
+            selectedIds.push($(this).val()); // Utilisez .val() pour obtenir la valeur au lieu de .attr('id')
+        });
+        return selectedIds;
+    }
+
+    // Lorsqu'un champ de radio est cliqué
+    $('input[type="radio"]').click(function() {
+        var selectedIds = $(this).val(); // Récupérer la valeur du radio sélectionné
+        $('#selected_ids_str').val(selectedIds); // Mettre à jour la valeur de selected_ids_str
+
+        // Appel à la fonction pour traiter les ID sélectionnés et effectuer d'autres actions si nécessaire
+        processSelectedIds();
+    });
+
+    // Fonction pour traiter les ID sélectionnés
+    function processSelectedIds() {
+        var selectedIds = getSelectedRadioIds(); // Récupérer les ID sélectionnés
+        console.log("ID sélectionnés :", selectedIds); // Afficher les ID sélectionnés dans la console
+
+        // Envoi de la requête AJAX
+        $.ajax({
+            type: 'POST',
+            url: '/recherche',
+            data: { selectedIds: selectedIds, search: 'valeur_de_recherche' }, // Envoyer les ID sélectionnés
+            success: function(data) {
+                // Afficher les résultats sur la page
+                $('#results').html(data);
+            }
+        });
+    }
+
+    // Appel initial pour traiter les ID sélectionnés lors du chargement de la page
+    processSelectedIds();
+});
+
+
+</script>
+
+
+<script>$(document).ready(function() {
+    // Lorsque la page est prête
+
+    // Sélectionnez tous les liens des résultats de recherche
+    $('.list-group-item').each(function() {
+        var $this = $(this);
+
+        // Récupérez l'URL du lien
+        var pdfLink = $this.find('a').attr('href');
+
+        // Récupérez l'ID du brevet
+        var patentID = $this.find('p').filter(function() {
+            return $(this).text().startsWith('ID:');
+        }).text().replace('ID:', '').trim();
+
+        // Vérifiez si l'URL commence par "https://patentimages.storage"
+        if (pdfLink.startsWith('https://patentimages.storage')) {
+            // Si oui, définissez la valeur de la variable collection sur 'data'
+            var collection = 'data';
+        }
+        // Sinon, vérifiez si l'URL commence par "https://www.freepatentsonline.com"
+        else if (pdfLink.startsWith('https://www.freepatentsonline.com')) {
+            // Si oui, définissez la valeur de la variable collection sur 'FPO'
+            var collection = 'FPO';
+        }
+        // Sinon, vérifiez si l'URL commence par "https://worldwide.espacenet.com"
+        else if (pdfLink.startsWith('https://worldwide.espacenet.com')) {
+            // Si oui, définissez la valeur de la variable collection sur 'wip'
+            var collection = 'wip';
+        }
+
+        // Affichez l'ID et la collection dans la console
+        console.log("Patent ID:", patentID);
+        console.log("Collection:", collection);
+
+        // Mettre à jour l'URL du bouton avec le paramètre de collection
+        var detailBtn = $this.find('.btn-primary');
+        var currentUrl = detailBtn.attr('href');
+        var newUrl = currentUrl + '?collection=' + collection + '&patentID=' + patentID;
+        detailBtn.attr('href', newUrl);
+    });
+});
+
+
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="chat-container">
+            <div id="chat-box" class="chat-box">
+                <p class="bot">Bienvenue! Choisissez une option ci-dessous pour continuer:</p>
+            </div>
+            <div class="chat-buttons">
+                <button class="btn btn-success" onclick="respond('salut')">
+                    <img src="https://img.icons8.com/emoji/48/000000/waving-hand-emoji.png" alt="Salut">Salut
+                </button>
+                <button class="btn btn-success" onclick="respond('donner moi un brevet agricole')">
+                    <img src="https://img.icons8.com/emoji/48/000000/seedling-emoji.png" alt="Brevet Agricole">Brevet Agricole
+                </button>
+                <button class="btn btn-success" onclick="respond('by')">
+                    <img src="https://img.icons8.com/emoji/48/000000/waving-hand-emoji.png" alt="By">By
+                </button>
+                <button class="btn btn-success" onclick="respond('quelle est la météo agricole')">
+                    <img src="https://img.icons8.com/color/48/000000/sun-cloud.png" alt="Météo Agricole">Météo Agricole
+                </button>
+                <button class="btn btn-success" onclick="respond('donner un conseil agricole')">
+                    <img src="https://img.icons8.com/color/48/000000/idea.png" alt="Conseil Agricole">Conseil Agricole
+                </button>
+                <button class="btn btn-success" onclick="respond('quel est ton nom')">
+                    <img src="https://img.icons8.com/emoji/48/000000/robot-emoji.png" alt="Nom">Ton Nom
+                </button>
+                <button class="btn btn-success" onclick="respond('rendement des cultures')">
+                    <img src="https://img.icons8.com/emoji/48/000000/tractor-emoji.png" alt="Rendement">Rendement des Cultures
+                </button>
+                <button class="btn btn-success" onclick="respond('superficie des cultures')">
+                    <img src="https://img.icons8.com/emoji/48/000000/plant-emoji.png" alt="Superficie">Superficie des Cultures
+                </button>
+                <button class="btn btn-success" onclick="respond('production totale par année')">
+                    <img src="https://img.icons8.com/emoji/48/000000/calendar-emoji.png" alt="Production">Production Totale par Année
+                </button>
+                <button class="btn btn-success" onclick="respond('superficie totale par produit')">
+                    <img src="https://img.icons8.com/emoji/48/000000/bar-chart-emoji.png" alt="Superficie Produit">Superficie Totale par Produit
+                </button>
+                <button class="btn btn-success" onclick="respond('météo aujourd\'hui')">
+                    <img src="https://img.icons8.com/emoji/48/000000/sun-emoji.png" alt="Météo Aujourd'hui">Météo Aujourd'hui
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    const apiKey = 'b5a9c86a52d9290f8483eb734c68e550'; // Remplacez par votre clé API OpenWeatherMap
+
+
+
+function respond(option) {
+    const chatBox = document.getElementById('chat-box');
+
+    const userMessage = `<p><strong>Vous:</strong> ${option}</p>`;
+    chatBox.innerHTML += userMessage;
+
+    let response = '';
+    let username = '{{ session["username"] if "username" in session else "Utilisateur" }}'; // Récupérer le nom d'utilisateur depuis la session
+
+    if (option === 'salut') {
+        const greetings = [
+            `Salut ${username}! Comment puis-je vous aider aujourd'hui?`,
+            `Bonjour ${username}! Que puis-je faire pour vous?`,
+            `Salut ${username}! Que puis-je faire pour vous aujourd'hui?`,
+            `Bonjour ${username}! Comment puis-je vous être utile?`,
+            `Salut ${username}! En quoi puis-je vous assister?`,
+            `Salut ${username}! Comment puis-je vous aider en cette belle journée?`,
+            `Bonjour ${username}! Que puis-je faire pour vous aujourd'hui?`,
+            `Salut ${username}! Comment puis-je rendre votre journée meilleure?`,
+            `Bonjour ${username}! En quoi puis-je vous aider?`,
+            `Salut ${username}! Qu'est-ce que je peux faire pour vous aujourd'hui?`,
+            `Bonjour ${username}! Comment puis-je vous assister aujourd'hui?`,
+            `Salut ${username}! Que puis-je faire pour vous en ce moment?`,
+            `Bonjour ${username}! Comment puis-je vous aider à avancer?`,
+            `Salut ${username}! Que puis-je faire pour améliorer votre journée?`,
+            `Bonjour ${username}! Comment puis-je vous aider aujourd'hui?`,
+            `Salut ${username}! Que puis-je faire pour vous en cette belle journée?`,
+            `Bonjour ${username}! Comment puis-je vous aider en ce moment?`,
+            `Salut ${username}! Comment puis-je vous assister aujourd'hui?`,
+            `Bonjour ${username}! Que puis-je faire pour vous aider?`,
+            `Salut ${username}! Comment puis-je vous être utile aujourd'hui?`
+        ];
+        response = greetings[Math.floor(Math.random() * greetings.length)];
+    } else if (option === 'donner moi un brevet agricole') {
+        const patents = [
+            'Brevet A001 - Système d\'irrigation intelligent',
+            'Brevet A002 - Machine de plantation automatisée',
+            'Brevet A003 - Dispositif de surveillance des cultures par drone',
+            'Brevet A004 - Engrais organique amélioré',
+            'Brevet A005 - Technologie de culture hydroponique'
+        ];
+        const randomPatent = patents[Math.floor(Math.random() * patents.length)];
+        response = `Voici un brevet agricole pour vous: ${randomPatent}`;
+    } else if (option === 'by') {
+        response = 'À bientôt!';
+    } else if (option === 'quelle est la météo agricole') {
+        const weatherInfos = [
+            'La météo agricole prévoit des précipitations légères et des températures modérées, idéales pour la croissance des cultures.',
+            'Il va pleuvoir légèrement aujourd\'hui, ce qui est parfait pour vos cultures.',
+            'Attendez-vous à des températures modérées et une légère pluie, parfait pour l\'agriculture.'
+        ];
+        response = weatherInfos[Math.floor(Math.random() * weatherInfos.length)];
+    } else if (option === 'donner un conseil agricole') {
+        const tips = [
+            'Utilisez des capteurs d\'humidité pour optimiser l\'irrigation.',
+            'Pratiquez la rotation des cultures pour améliorer la fertilité du sol.',
+            'Adoptez des techniques de lutte biologique pour contrôler les ravageurs.',
+            'Utilisez des variétés de plantes résistantes aux maladies.',
+            'Surveillez régulièrement vos cultures pour détecter rapidement les problèmes.'
+        ];
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        response = `Conseil agricole: ${randomTip}`;
+    } else if (option === 'quel est ton nom') {
+        const names = [
+            'Je suis AgroBot, votre assistant virtuel pour les brevets et les conseils agricoles.',
+            'Appelez-moi AgroBot! Je suis là pour vous aider avec les brevets et l\'agriculture.',
+            'Je suis AgroBot, votre assistant en matière de brevets et d\'agriculture.'
+        ];
+        response = names[Math.floor(Math.random() * names.length)];
+    } else if (option === 'rendement des cultures' || option === 'superficie des cultures' || option === 'production totale par année' || option === 'superficie totale par produit') {
+        let queryType = '';
+        if (option === 'rendement des cultures') {
+            queryType = 'crop_yield';
+        } else if (option === 'superficie des cultures') {
+            queryType = 'crop_area';
+        } else if (option === 'production totale par année') {
+            queryType = 'total_production_by_year';
+        } else if (option === 'superficie totale par produit') {
+            queryType = 'total_area_by_product';
+        }
+
+        fetch('http://127.0.0.1:5000/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query_type: queryType })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const botResponseVariants = [
+                `Voici les informations que vous avez demandées: ${data.message}`,
+                `J'ai trouvé ce que vous cherchez: ${data.message}`,
+            ];
+            const botResponse = `<p><strong>Bot:</strong> ${botResponseVariants[Math.floor(Math.random() * botResponseVariants.length)]}</p>`;
+            chatBox.innerHTML += botResponse;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const botResponse = `<p><strong>Bot:</strong> Une erreur est survenue lors de la requête.</p>`;
+            chatBox.innerHTML += botResponse;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+        return;
+    } else if (option === 'météo aujourd\'hui') {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=fr`;
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const weatherDescription = data.weather[0].description;
+                        const temperature = data.main.temp;
+                        const advice = getAgriculturalAdvice(temperature);
+                        const botResponse = `<p><strong>Bot:</strong> La météo actuelle est ${weatherDescription} avec une température de ${temperature}°C. ${advice}</p>`;
+                        chatBox.innerHTML += botResponse;
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    })
+                    .catch(error => {
+                        const botResponse = `<p><strong>Bot:</strong> Une erreur est survenue lors de la récupération des données météo.</p>`;
+                        chatBox.innerHTML += botResponse;
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                        console.error('Error:', error);
+                    });
+            });
+        } else {
+            response = 'La géolocalisation n\'est pas prise en charge par ce navigateur.';
+            const botResponse = `<p><strong>Bot:</strong> ${response}</p>`;
+            chatBox.innerHTML += botResponse;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        return;
+    }
+
+    if (response) {
+        const botResponse = `<p><strong>Bot:</strong> ${response}</p>`;
+        chatBox.innerHTML += botResponse;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+}
+
+function getAgriculturalAdvice(temperature) {
+    if (temperature < 10) {
+        return 'Il fait assez froid aujourd\'hui. Pensez à protéger vos plantes sensibles au froid.';
+    } else if (temperature >= 10 && temperature < 20) {
+        return 'La température est modérée. C\'est une bonne journée pour vérifier l\'humidité du sol et ajuster l\'irrigation si nécessaire.';
+    } else if (temperature >= 20 && temperature < 30) {
+        return 'La température est idéale pour la croissance de nombreuses cultures. Assurez-vous que vos plantes reçoivent suffisamment d\'eau.';
+    } else if (temperature >= 30) {
+        return 'Il fait chaud aujourd\'hui. Assurez-vous d\'arroser vos plantes régulièrement pour éviter le stress hydrique.';
+    }
+    return '';
+}
+
+</script>
+<script>
+        const TRIVIA_API_URL = 'https://opentdb.com/api.php?amount=5&type=multiple';
+
+        const agricultureQuestions = [
+            {
+                question: "What is the process of growing crops called?",
+                correct_answer: "Agriculture",
+                incorrect_answers: ["Horticulture", "Silviculture", "Pisciculture"]
+            },
+            {
+                question: "Which of the following is a primary sector activity?",
+                correct_answer: "Farming",
+                incorrect_answers: ["Banking", "Retail", "IT services"]
+            },
+            {
+                question: "Which crop is known as the staple food of half the world’s population?",
+                correct_answer: "Rice",
+                incorrect_answers: ["Wheat", "Maize", "Barley"]
+            },
+            {
+                question: "What type of farming involves growing crops and raising animals for personal use?",
+                correct_answer: "Subsistence farming",
+                incorrect_answers: ["Commercial farming", "Organic farming", "Intensive farming"]
+            },
+            {
+                question: "Which nutrient is most important for plant growth?",
+                correct_answer: "Nitrogen",
+                incorrect_answers: ["Phosphorus", "Potassium", "Calcium"]
+            },
+            {
+                question: "What is the practice of growing plants without soil called?",
+                correct_answer: "Hydroponics",
+                incorrect_answers: ["Aquaponics", "Aeroponics", "Terraponics"]
+            },
+            {
+                question: "Which method is used to conserve soil fertility?",
+                correct_answer: "Crop rotation",
+                incorrect_answers: ["Deforestation", "Overgrazing", "Monoculture"]
+            },
+            {
+                question: "What is the main purpose of irrigation in agriculture?",
+                correct_answer: "To supply water to crops",
+                incorrect_answers: ["To remove pests", "To fertilize the soil", "To harvest crops"]
+            },
+            {
+                question: "Which of these animals is commonly used in dairy farming?",
+                correct_answer: "Cows",
+                incorrect_answers: ["Sheep", "Goats", "Chickens"]
+            },
+            {
+                question: "What is the process of breeding and raising fish called?",
+                correct_answer: "Aquaculture",
+                incorrect_answers: ["Pisciculture", "Horticulture", "Viticulture"]
+            },
+            {
+                question: "Which of these is a traditional method of irrigation?",
+                correct_answer: "Furrow irrigation",
+                incorrect_answers: ["Drip irrigation", "Sprinkler irrigation", "Center pivot irrigation"]
+            },
+            {
+                question: "What is the main goal of sustainable agriculture?",
+                correct_answer: "To meet current food needs without compromising future generations",
+                incorrect_answers: ["To maximize profits", "To use the most modern technology", "To grow genetically modified crops"]
+            },
+            {
+                question: "Which part of the plant is responsible for photosynthesis?",
+                correct_answer: "Leaves",
+                incorrect_answers: ["Roots", "Stem", "Flowers"]
+            },
+            {
+                question: "Which farming technique helps to prevent soil erosion?",
+                correct_answer: "Terracing",
+                incorrect_answers: ["Clear-cutting", "Slash-and-burn", "Overgrazing"]
+            },
+            {
+                question: "Which type of agriculture involves the use of natural fertilizers and pest control methods?",
+                correct_answer: "Organic farming",
+                incorrect_answers: ["Conventional farming", "Commercial farming", "Subsistence farming"]
+            },
+            {
+                question: "What is the main purpose of using greenhouses in agriculture?",
+                correct_answer: "To grow plants in a controlled environment",
+                incorrect_answers: ["To store harvested crops", "To breed animals", "To process agricultural products"]
+            },
+            {
+                question: "Which crop is commonly associated with the production of biofuels?",
+                correct_answer: "Corn",
+                incorrect_answers: ["Wheat", "Soybeans", "Rice"]
+            },
+            {
+                question: "Which of these is an example of a leguminous crop?",
+                correct_answer: "Peas",
+                incorrect_answers: ["Wheat", "Rice", "Corn"]
+            },
+            {
+                question: "Which farming practice involves growing different types of crops in the same area in sequential seasons?",
+                correct_answer: "Crop rotation",
+                incorrect_answers: ["Monoculture", "Intercropping", "Agroforestry"]
+            },
+            {
+                question: "What is the practice of controlling pests using other living organisms called?",
+                correct_answer: "Biological control",
+                incorrect_answers: ["Chemical control", "Mechanical control", "Cultural control"]
+            },
+            // Additional 20 questions
+            {
+                question: "What is the term for the cultivation of grapevines?",
+                correct_answer: "Viticulture",
+                incorrect_answers: ["Viniculture", "Olericulture", "Pomology"]
+            },
+            {
+                question: "Which insect is commonly used in the biological control of aphids?",
+                correct_answer: "Ladybugs",
+                incorrect_answers: ["Butterflies", "Bees", "Ants"]
+            },
+            {
+                question: "What is the term for the science of soil management and crop production?",
+                correct_answer: "Agronomy",
+                incorrect_answers: ["Horticulture", "Entomology", "Agrology"]
+            },
+            {
+                question: "Which crop is primarily grown in paddy fields?",
+                correct_answer: "Rice",
+                incorrect_answers: ["Corn", "Wheat", "Soybeans"]
+            },
+            {
+                question: "What type of farming involves growing crops in nutrient-rich water?",
+                correct_answer: "Aquaponics",
+                incorrect_answers: ["Hydroponics", "Aeroponics", "Aquaculture"]
+            },
+            {
+                question: "Which fruit is known as the 'king of fruits'?",
+                correct_answer: "Mango",
+                incorrect_answers: ["Apple", "Banana", "Orange"]
+            },
+            {
+                question: "What is the main benefit of crop rotation?",
+                correct_answer: "Improved soil health",
+                incorrect_answers: ["Increased water usage", "Reduced biodiversity", "Higher pesticide use"]
+            },
+            {
+                question: "Which farming method helps reduce water usage?",
+                correct_answer: "Drip irrigation",
+                incorrect_answers: ["Flood irrigation", "Furrow irrigation", "Sprinkler irrigation"]
+            },
+            {
+                question: "What is the term for the practice of cultivating flowers?",
+                correct_answer: "Floriculture",
+                incorrect_answers: ["Horticulture", "Silviculture", "Olericulture"]
+            },
+            {
+                question: "Which animal is commonly used in sericulture?",
+                correct_answer: "Silkworm",
+                incorrect_answers: ["Bee", "Ladybug", "Earthworm"]
+            },
+            {
+                question: "Which agricultural practice involves the growing of fruit?",
+                correct_answer: "Pomology",
+                incorrect_answers: ["Viticulture", "Olericulture", "Agronomy"]
+            },
+            {
+                question: "What is the primary use of green manure?",
+                correct_answer: "To improve soil fertility",
+                incorrect_answers: ["To control pests", "To reduce water usage", "To harvest crops"]
+            },
+            {
+                question: "Which type of soil is best for growing crops?",
+                correct_answer: "Loamy soil",
+                incorrect_answers: ["Sandy soil", "Clayey soil", "Rocky soil"]
+            },
+            {
+                question: "What is the practice of raising bees called?",
+                correct_answer: "Apiculture",
+                incorrect_answers: ["Aquaculture", "Sericulture", "Viticulture"]
+            },
+            {
+                question: "Which agricultural tool is used for breaking and turning soil?",
+                correct_answer: "Plow",
+                incorrect_answers: ["Harvester", "Seeder", "Irrigator"]
+            },
+            {
+                question: "What is the term for the cultivation of vegetables?",
+                correct_answer: "Olericulture",
+                incorrect_answers: ["Pomology", "Floriculture", "Silviculture"]
+            },
+            {
+                question: "Which nutrient is essential for photosynthesis?",
+                correct_answer: "Magnesium",
+                incorrect_answers: ["Iron", "Copper", "Zinc"]
+            },
+            {
+                question: "What is the term for the science of growing fruit and nuts?",
+                correct_answer: "Pomology",
+                incorrect_answers: ["Olericulture", "Silviculture", "Viticulture"]
+            },
+            {
+                question: "Which crop is known for fixing nitrogen in the soil?",
+                correct_answer: "Legumes",
+                incorrect_answers: ["Wheat", "Rice", "Corn"]
+            },
+            {
+                question: "What is the term for the planting of trees to create forests?",
+                correct_answer: "Afforestation",
+                incorrect_answers: ["Deforestation", "Reforestation", "Silviculture"]
+            }
+        ];
+
+        async function fetchTriviaData() {
+            try {
+                const response = await fetch(TRIVIA_API_URL);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                return data.results;
+            } catch (error) {
+                console.error('Error fetching trivia data:', error);
+                return [];
+            }
+        }
+
+        function mergeAndShuffleQuestions(apiQuestions, agricultureQuestions) {
+            const combinedQuestions = [...apiQuestions, ...agricultureQuestions];
+            for (let i = combinedQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [combinedQuestions[i], combinedQuestions[j]] = [combinedQuestions[j], combinedQuestions[i]];
+            }
+            return combinedQuestions.slice(0, 5);
+        }
+
+        function generateQuizQuestions(questions) {
+            const quizForm = document.getElementById('quiz-form');
+            if (questions.length === 0) {
+                quizForm.innerHTML = '<p>No quiz questions available at the moment.</p>';
+                return;
+            }
+
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                const questionP = document.createElement('p');
+                questionP.innerHTML = `Q${index + 1}: ${question.question}`;
+                questionDiv.appendChild(questionP);
+
+                const options = [...question.incorrect_answers, question.correct_answer].sort(() => Math.random() - 0.5);
+
+                const optionsUl = document.createElement('ul');
+                options.forEach((option) => {
+                    const optionLi = document.createElement('li');
+                    const optionInput = document.createElement('input');
+                    optionInput.type = 'radio';
+                    optionInput.name = `question${index}`;
+                    optionInput.value = option;
+                    optionLi.appendChild(optionInput);
+                    optionLi.appendChild(document.createTextNode(option));
+                    optionsUl.appendChild(optionLi);
+                });
+                questionDiv.appendChild(optionsUl);
+                quizForm.appendChild(questionDiv);
+            });
+
+            const submitButton = document.createElement('button');
+            submitButton.type = 'button';
+            submitButton.textContent = 'Submit';
+            submitButton.onclick = submitQuiz;
+            quizForm.appendChild(submitButton);
+        }
+
+        async function submitQuiz() {
+            const quizForm = document.getElementById('quiz-form');
+            const formData = new FormData(quizForm);
+            const answers = [];
+            for (const [key, value] of formData.entries()) {
+                answers.push(value);
+            }
+
+            const apiQuestions = await fetchTriviaData();
+            const questions = mergeAndShuffleQuestions(apiQuestions, agricultureQuestions);
+            let score = 0;
+
+            answers.forEach((answer, index) => {
+                if (answer === questions[index].correct_answer) {
+                    score++;
+                }
+            });
+
+            document.getElementById('result').innerText = `Your score: ${score}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const apiQuestions = await fetchTriviaData();
+            const questions = mergeAndShuffleQuestions(apiQuestions, agricultureQuestions);
+            generateQuizQuestions(questions);
+        });
+    </script>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#ongletComments').on('click', function() {
+        // Masquer la balise <section> lorsque l'onglet commentaires est cliqué
+        $('section').hide();
+
+        // Faites une requête AJAX pour récupérer les commentaires depuis la base de données
+        $.ajax({
+            url: 'http://localhost:3001/api/comments',
+            type: 'GET',
+            success: function(data) {
+                // Effacer les commentaires précédents
+                $('#commentsList').empty();
+
+                // Afficher les commentaires récupérés
+                data.forEach(function(comment) {
+                    var commentItem = `
+                        <div class="comment-item" data-id="${comment._id}">
+                            <p><strong>${comment.username}:</strong> ${comment.comment}</p>
+                            <p class="text-muted">${new Date(comment.date).toLocaleString()} - Sentiment: ${comment.sentiment}</p>
+                            <button class="delete-comment" data-username="${comment.username}">Delete</button>
+                        </div>
+                    `;
+                    $('#commentsList').append(commentItem);
+                });
+
+                // Ajouter l'événement de suppression
+                $('.delete-comment').on('click', function() {
+                    var commentId = $(this).closest('.comment-item').data('id');
+                    var commentUsername = $(this).data('username');
+                    var currentUsername = '{{ session["username"] if "username" in session else "unknown" }}'; // Utilisez une méthode pour récupérer le nom d'utilisateur actuel
+
+                    if (currentUsername !== commentUsername) {
+                        alert('You are not authorized to delete this comment');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: `http://localhost:3001/api/comments/${commentId}`,
+                        method: 'DELETE',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ username: currentUsername }),
+                        success: function(response) {
+                            alert('Comment deleted successfully');
+                            $(`[data-id="${commentId}"]`).remove();
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Error deleting comment: ' + error);
+                        }
+                    });
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de la récupération des commentaires :', error);
+            }
+        });
+    });
+
+    $('#commentForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var username = '{{ session["username"] if "username" in session else "Utilisateur" }}';
+        var userId = '{{ session["userId"] if "userId" in session else "unknown" }}'; // Utilisez une méthode pour récupérer l'ID de l'utilisateur actuel
+        var comment = $('#comment').val();
+        var language = $('#language').val();
+        var date = new Date().toISOString();
+
+        $.ajax({
+            url: 'http://localhost:3001/api/comments',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ username: username, userId: userId, comment: comment, language: language, date: date }),
+            success: function(response) {
+                $.ajax({
+                    url: 'http://localhost:5000/predict',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ comment: comment, language: language }),
+                    success: function(flaskResponse) {
+                        $('#sentimentResult').text('Sentiment: ' + flaskResponse.prediction);
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error fetching sentiment: ' + error);
+                    }
+                });
+
+                alert('Comment submitted successfully');
+                $('#comment').val('');
+                $('#language').val('en');
+            },
+            error: function(xhr, status, error) {
+                alert('Error submitting comment: ' + error);
+            }
+        });
+    });
+});
+</script>
+
+
+  <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-labelledby="chartModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="chartModalLabel">Commentaires Positifs vs Négatifs</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="sentimentChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    new Vue({
+      el: '.comment-box',
+      data: {
+        positiveComments: 0,
+        negativeComments: 0
+      },
+      methods: {
+        async showChartModal() {
+          await this.fetchCommentCounts();
+          $('#chartModal').modal('show');
+          this.renderChart();
+        },
+        renderChart() {
+          const ctx = document.getElementById('sentimentChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Positifs', 'Négatifs'],
+              datasets: [{
+                label: 'Commentaires',
+                data: [this.positiveComments, this.negativeComments],
+                backgroundColor: ['#4CAF50', '#F44336']
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+        },
+        async fetchCommentCounts() {
+          try {
+            const response = await axios.get('http://localhost:3001/api/comments/count');
+            this.positiveComments = response.data.positive;
+            this.negativeComments = response.data.negative;
+          } catch (err) {
+            console.error('Error fetching comment counts', err);
+          }
+        }
+      },
+      mounted() {
+        this.fetchCommentCounts();
+      }
+    });
+
+    // Event listener for the chart button
+    document.getElementById('showChartButton').addEventListener('click', function () {
+      // Vue.js method to show the chart modal
+      document.querySelector('.comment-box').__vue__.showChartModal();
+    });
+  </script>
+
+
+</body>
+</html>

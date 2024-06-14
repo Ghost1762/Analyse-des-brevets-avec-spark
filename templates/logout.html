@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGROPA</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [progress, setProgress] = useState(0);
+
+      const handleLogout = () => {
+        let interval = setInterval(() => {
+          setProgress((prevProgress) => {
+            if (prevProgress >= 100) {
+              clearInterval(interval);
+              window.location.href = '/login2'; // Rediriger vers la page de déconnexion ou de login
+              return 100;
+            }
+            return prevProgress + 10;
+          });
+        }, 100);
+      };
+
+      return (
+        <div className="container mt-5">
+          <div className="row">
+            <div className="col-md-12 text-center">
+              <h1>AGROPA</h1>
+              <button className="btn btn-danger mt-3" onClick={handleLogout}>
+                Déconnexion
+              </button>
+              <div className="progress mt-3">
+                <div
+                  className="progress-bar"
+                  role="progressbar"
+                  style={{ width: `${progress}%` }}
+                  aria-valuenow={progress}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {progress}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

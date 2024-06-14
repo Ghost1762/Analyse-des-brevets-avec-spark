@@ -1,0 +1,307 @@
+year,count,country
+,,818
+Australia,2006.0,2
+Australia,2007.0,2
+Australia,2008.0,1
+Australia,2009.0,4
+Australia,2013.0,1
+Australia,2014.0,2
+Australia,2015.0,3
+Australia,2017.0,1
+Australia,2018.0,2
+Australia,2019.0,2
+Australia,2020.0,1
+Australia,2021.0,2
+Austria,2014.0,1
+Belgium,,8
+Belgium,1900.0,1
+Belgium,1964.0,1
+Belgium,1969.0,1
+Belgium,1974.0,1
+Belgium,1978.0,1
+Belgium,1992.0,2
+Belgium,1995.0,1
+Belgium,1997.0,1
+Belgium,2000.0,1
+Belgium,2001.0,1
+Belgium,2006.0,2
+Belgium,2012.0,1
+Belgium,2016.0,1
+Belgium,2017.0,1
+Belgium,2018.0,1
+Belgium,2019.0,1
+Belgium,2020.0,3
+Belgium,2021.0,2
+Belgium,2022.0,1
+Belgium,2023.0,2
+Brazil,2017.0,1
+Brazil,2018.0,1
+Brazil,2020.0,3
+Brazil,2021.0,2
+Canada,1987.0,1
+Canada,1991.0,2
+Canada,1993.0,1
+Canada,1994.0,1
+Canada,1996.0,1
+Canada,1997.0,1
+Canada,2001.0,2
+Canada,2002.0,2
+Canada,2003.0,1
+Canada,2005.0,4
+Canada,2006.0,4
+Canada,2007.0,5
+Canada,2008.0,4
+Canada,2010.0,3
+Canada,2011.0,1
+Canada,2012.0,1
+Canada,2013.0,2
+Canada,2014.0,4
+Canada,2015.0,3
+Canada,2016.0,2
+Canada,2017.0,3
+Canada,2018.0,1
+Canada,2019.0,5
+Canada,2020.0,5
+Canada,2021.0,6
+Canada,2022.0,4
+China,2006.0,2
+China,2007.0,13
+China,2008.0,21
+China,2009.0,37
+China,2010.0,23
+China,2011.0,37
+China,2012.0,29
+China,2013.0,31
+China,2014.0,62
+China,2015.0,49
+China,2016.0,37
+China,2017.0,47
+China,2018.0,35
+China,2019.0,48
+China,2020.0,12
+China,2021.0,5
+China,2022.0,5
+Eurasian Patent Office,2017.0,1
+European Patent Office,1980.0,2
+European Patent Office,1981.0,1
+European Patent Office,1983.0,1
+European Patent Office,1984.0,3
+European Patent Office,1985.0,4
+European Patent Office,1986.0,3
+European Patent Office,1987.0,2
+European Patent Office,1988.0,7
+European Patent Office,1989.0,5
+European Patent Office,1990.0,6
+European Patent Office,1991.0,4
+European Patent Office,1992.0,3
+European Patent Office,1993.0,2
+European Patent Office,1994.0,4
+European Patent Office,1995.0,4
+European Patent Office,1996.0,3
+European Patent Office,1997.0,5
+European Patent Office,1998.0,4
+European Patent Office,1999.0,10
+European Patent Office,2000.0,4
+European Patent Office,2001.0,14
+European Patent Office,2002.0,14
+European Patent Office,2003.0,13
+European Patent Office,2004.0,12
+European Patent Office,2005.0,16
+European Patent Office,2006.0,12
+European Patent Office,2007.0,24
+European Patent Office,2008.0,11
+European Patent Office,2009.0,24
+European Patent Office,2010.0,25
+European Patent Office,2011.0,29
+European Patent Office,2012.0,23
+European Patent Office,2013.0,23
+European Patent Office,2014.0,25
+European Patent Office,2015.0,29
+European Patent Office,2016.0,33
+European Patent Office,2017.0,52
+European Patent Office,2018.0,40
+European Patent Office,2019.0,43
+European Patent Office,2020.0,37
+European Patent Office,2021.0,37
+European Patent Office,2022.0,23
+European Patent Office,2023.0,16
+European Patent Office,2024.0,3
+France,1980.0,1
+France,1981.0,8
+France,1982.0,10
+France,1983.0,12
+France,1984.0,11
+France,1985.0,6
+France,1986.0,5
+France,1987.0,11
+France,1988.0,8
+France,1989.0,12
+France,1990.0,18
+France,1991.0,5
+France,1992.0,5
+France,1993.0,7
+France,1994.0,15
+France,1995.0,4
+France,1996.0,6
+France,1997.0,7
+France,1998.0,3
+France,1999.0,13
+France,2000.0,11
+France,2001.0,13
+France,2002.0,11
+France,2003.0,11
+France,2004.0,12
+France,2005.0,9
+France,2006.0,11
+France,2007.0,15
+France,2008.0,12
+France,2009.0,12
+France,2010.0,22
+France,2011.0,16
+France,2012.0,22
+France,2013.0,24
+France,2014.0,20
+France,2015.0,14
+France,2016.0,26
+France,2017.0,32
+France,2018.0,27
+France,2019.0,36
+France,2020.0,33
+France,2021.0,31
+France,2022.0,26
+France,2023.0,26
+France,2024.0,6
+Germany,2008.0,1
+Germany,2013.0,1
+Germany,2018.0,2
+Germany,2020.0,1
+Germany,2021.0,1
+Germany,2023.0,1
+Hungary,2016.0,4
+Hungary,2017.0,7
+Hungary,2018.0,1
+Japan,2007.0,2
+Japan,2008.0,6
+Japan,2010.0,3
+Japan,2011.0,3
+Japan,2012.0,7
+Japan,2013.0,7
+Japan,2014.0,3
+Japan,2015.0,13
+Japan,2016.0,6
+Japan,2017.0,5
+Japan,2018.0,7
+Japan,2019.0,5
+Japan,2020.0,7
+Japan,2021.0,5
+Japan,2022.0,10
+Japan,2023.0,3
+Japan,2024.0,1
+Luxembourg,1989.0,1
+Luxembourg,1990.0,2
+Luxembourg,2017.0,1
+Luxembourg,2021.0,1
+Luxembourg,2023.0,1
+Mexico,2015.0,1
+OAPI,2018.0,1
+OAPI,2019.0,2
+OAPI,2022.0,1
+OAPI,2023.0,2
+Russia,2008.0,2
+Russia,2009.0,3
+Russia,2010.0,6
+Russia,2011.0,1
+Russia,2012.0,1
+Russia,2013.0,3
+Russia,2014.0,4
+Russia,2015.0,3
+Russia,2016.0,5
+Russia,2017.0,5
+Russia,2018.0,5
+Russia,2019.0,1
+South Korea,2007.0,1
+South Korea,2009.0,2
+South Korea,2010.0,4
+South Korea,2011.0,2
+South Korea,2012.0,3
+South Korea,2013.0,2
+South Korea,2014.0,3
+South Korea,2015.0,4
+South Korea,2016.0,4
+South Korea,2017.0,5
+South Korea,2018.0,7
+South Korea,2019.0,6
+South Korea,2020.0,1
+South Korea,2021.0,4
+South Korea,2022.0,2
+South Korea,2023.0,1
+Spain,2009.0,1
+Spain,2012.0,1
+Spain,2013.0,1
+Spain,2014.0,2
+Spain,2015.0,1
+Spain,2016.0,1
+Spain,2017.0,3
+Spain,2019.0,4
+Spain,2020.0,2
+Spain,2021.0,3
+Spain,2022.0,1
+Spain,2023.0,3
+Switzerland,1977.0,1
+Switzerland,1982.0,1
+Switzerland,1984.0,1
+Switzerland,2003.0,1
+Switzerland,2013.0,2
+Switzerland,2016.0,1
+Switzerland,2022.0,1
+Taiwan,2006.0,1
+Taiwan,2008.0,1
+Taiwan,2009.0,1
+Taiwan,2012.0,2
+Taiwan,2014.0,1
+Taiwan,2015.0,1
+Taiwan,2016.0,1
+Taiwan,2017.0,1
+Taiwan,2019.0,1
+Taiwan,2021.0,2
+Tunisia,2021.0,1
+United States,2005.0,4
+United States,2006.0,6
+United States,2007.0,9
+United States,2008.0,7
+United States,2009.0,13
+United States,2010.0,14
+United States,2011.0,12
+United States,2012.0,8
+United States,2013.0,15
+United States,2014.0,19
+United States,2015.0,11
+United States,2016.0,14
+United States,2017.0,18
+United States,2018.0,18
+United States,2019.0,15
+United States,2020.0,20
+United States,2021.0,9
+United States,2022.0,4
+United States,2023.0,2
+WIPO (PCT),2004.0,5
+WIPO (PCT),2005.0,3
+WIPO (PCT),2006.0,9
+WIPO (PCT),2007.0,4
+WIPO (PCT),2008.0,8
+WIPO (PCT),2009.0,6
+WIPO (PCT),2010.0,9
+WIPO (PCT),2011.0,9
+WIPO (PCT),2012.0,7
+WIPO (PCT),2013.0,9
+WIPO (PCT),2014.0,9
+WIPO (PCT),2015.0,9
+WIPO (PCT),2016.0,20
+WIPO (PCT),2017.0,14
+WIPO (PCT),2018.0,26
+WIPO (PCT),2019.0,19
+WIPO (PCT),2020.0,22
+WIPO (PCT),2021.0,25
+WIPO (PCT),2022.0,27
+WIPO (PCT),2023.0,57
+WIPO (PCT),2024.0,3
