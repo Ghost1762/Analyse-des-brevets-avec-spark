@@ -8,12 +8,18 @@ Ce projet impliquait la recherche de données provenant de diverses bases de don
 
 
 # Technologies utilisées :
-## Sourcing : Google Brevets, FPO, OMPI, Espacenet
-## Grattage : Sélénium, SerpApi, BeautifulSoup
-## Stockage : MongoDB, PostgreSQL, Google Cloud
-## Traitement : Kafka, Pandas, Apache Spark
-## Visualisation : HTML, CSS, JavaScript, Vue.js, React, Express.js, Flask, Chart.js, TailwindCSS, TypeScript, jQuery, Power BI
-## Déploiement : Docker
+## Sourcing : 
+Google Brevets, FPO, OMPI, Espacenet
+## Grattage : 
+Sélénium, SerpApi, BeautifulSoup
+## Stockage : 
+MongoDB, PostgreSQL, Google Cloud
+## Traitement : 
+Kafka, Pandas, Apache Spark
+## Visualisation : 
+HTML, CSS, JavaScript, Vue.js, React, Express.js, Flask, Chart.js, TailwindCSS, TypeScript, jQuery, Power BI
+## Déploiement : 
+Docker
 
 # Résultats clés :
 Cet analyse a fourni des informations précieuses sur les tendances et les innovations du secteur agricole, aidant les parties prenantes à prendre des décisions éclairées et à favoriser de nouveaux progrès dans ce domaine vital.
